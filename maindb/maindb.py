@@ -5,7 +5,8 @@ import numpy as np
 from google.cloud import vision
 import io
 
-
+client = vision.ImageAnnotatorClient()
+features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 def read_color(fn):
     with io.open(fn, 'rb') as image_file:
         content = image_file.read()
@@ -35,7 +36,7 @@ def mainm():
         record = request.get_json()["art_image"]
         full_filename = os.path.join('/resource/img/', record)
         msg = "\nNow we are at" + os.getcwd()
-        google_features = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0).loc[record]
+        google_features = features_g_df.loc[record]
         dominant_colors = read_color(full_filename)
         # TODO: adding try/except for flask
 

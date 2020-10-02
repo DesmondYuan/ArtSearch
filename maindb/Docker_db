@@ -15,4 +15,5 @@ RUN pip3 install -r requirements.txt
 
 # Run our python script/application in the Docker container.
 CMD export GOOGLE_APPLICATION_CREDENTIALS = /resource/google_api_auth.json
+CMD echo "Successfully loaded Google.Vision API key: $GOOGLE_APPLICATION_CREDENTIALS"
 CMD python maindb.py

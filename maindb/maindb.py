@@ -2,6 +2,18 @@ from flask import Flask, render_template, request
 import os
 import pandas as pd
 import numpy as np
+from google.cloud import vision
+import io
+
+
+def read_color(fn):
+    with io.open(fn, 'rb') as image_file:
+        content = image_file.read()
+    image = vision.Image(content=content)
+    response = client.image_properties(image=image)
+    colors = response.image_properties_annotation.dominant_colors.colors
+    return [(color.pixel_fraction, color.color.red, color.color.green, color.color.blue)
+            for color in colors]
 
 # PEOPLE_FOLDER = os.path.join('static', 'people_photo')
 
@@ -23,10 +35,15 @@ def mainm():
         record = request.get_json()["art_image"]
         full_filename = os.path.join('/resource/img/', record)
         msg = "\nNow we are at" + os.getcwd()
-        google_features = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv")
+        try:
+            google_features = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv").loc[record]
+        except FileNotFoundError:
+            msg += "File not found: FeatureTable_GoogleAnnot.PCA.csv"
+        dominant_colors = read_color(full_filename)
 
         ### TEMPORARY HARD CODE
-        return render_template("display.html", art_image=full_filename, msg=msg)
+        return render_template("display.html", art_image=full_filename, msg=msg,
+                                google_features=google_features, dominant_colors=dominant_colors)
         # return "This is the filename you requested: " + str(full_filename)
     else:
         return "maindb.py - This is get method - try using post -- "

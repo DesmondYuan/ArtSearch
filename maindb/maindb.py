@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 import os
+import pandas as pd
+import numpy as np
 
 # PEOPLE_FOLDER = os.path.join('static', 'people_photo')
 
@@ -19,8 +21,8 @@ def mainm():
         # Retrieve the art_image submitted by the user. Get the image corresponding
         # to this id and return it back to the user.
         record = request.get_json()["art_image"]
-
-        full_filename = os.path.join("/gap_images/gap_images/", record)
+        color = pd.read_csv('resource/')
+        full_filename = os.path.join('resource/img/', record)
 
         ### TEMPORARY HARD CODE
         return render_template("display.html", art_image=full_filename)
@@ -31,4 +33,3 @@ def mainm():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8082, debug=True)
-

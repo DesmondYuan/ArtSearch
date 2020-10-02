@@ -1,5 +1,5 @@
 # The following line will download a Docker image that already is set up with python 3.7, so that we can run our
-# simple web application. 
+# simple web application.
 FROM python:3.7-slim-buster
 
 # This exposes the port 8082 so that that Docker container can receive requests through this port.
@@ -14,4 +14,5 @@ COPY templates/display.html templates/display.html
 RUN pip3 install -r requirements.txt
 
 # Run our python script/application in the Docker container.
+CMD export GOOGLE_APPLICATION_CREDENTIALS = /resource/google_api_auth.json
 CMD python maindb.py

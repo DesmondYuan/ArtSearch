@@ -21,12 +21,9 @@ def mainm():
         # Retrieve the art_image submitted by the user. Get the image corresponding
         # to this id and return it back to the user.
         record = request.get_json()["art_image"]
-        full_filename = os.path.join('img/', record)
-        msg = "\nNow we are at" + os.getcwd() + '\n' + str(os.listdir())
-        # try:
-        #     google_features = pd.read_csv("FeatureTable_GoogleAnnot.PCA.csv")
-        # except Exception as e:
-        #     msg = msg + '\n' + e
+        full_filename = os.path.join('/resource/img/', record)
+        msg = "\nNow we are at" + os.getcwd()
+        google_features = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv")
 
         ### TEMPORARY HARD CODE
         return render_template("display.html", art_image=full_filename, msg=msg)

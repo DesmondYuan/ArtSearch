@@ -12,5 +12,5 @@ docker network create appNetwork
 #docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb --network appNetwork simplequery
 
 # trying to mount local drive
-docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb --mount type=bind,source=./resource,target=/img --network appNetwork simplequery
-docker run --name maindb -d --mount type=bind,source=./resource,target=/img --network appNetwork maindb
+docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb --mount type=bind,source=/home/byuan/proj1/working_dir/ArtSearch/resource,target=/img --network appNetwork simplequery
+docker run --name maindb -d --mount type=bind,source=/home/byuan/proj1/working_dir/ArtSearch/resource,target=/img --network appNetwork maindb

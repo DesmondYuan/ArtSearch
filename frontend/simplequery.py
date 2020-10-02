@@ -11,7 +11,7 @@ def mainm():
         art_image = request.form["art_image"]
         # send this data_id to maindb.py
         resp = requests.post(url=db_url, json={"art_image": art_image})
-        return  # resp.content
+        return resp.content
     else:
         return render_template("index.html")
 
@@ -23,5 +23,5 @@ if __name__ == "__main__":
     else:
         db_url = "http://0.0.0.0:8082/"
 
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", port=8081, debug=True)
 

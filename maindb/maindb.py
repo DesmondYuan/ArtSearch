@@ -5,6 +5,7 @@ import numpy as np
 from google.cloud import vision
 import io
 
+os.system("export GOOGLE_APPLICATION_CREDENTIALS='/resource/google_api_auth.json')
 client = vision.ImageAnnotatorClient()
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 def read_color(fn):

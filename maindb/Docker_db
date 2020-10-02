@@ -9,11 +9,8 @@ EXPOSE 8082
 COPY maindb.py maindb.py
 COPY requirements.txt requirements.txt
 COPY templates/display.html templates/display.html
-COPY ../resource/google_api_auth.json google_api_auth.json
 # Need to download and install the python package e.g. Flask, requests etc.
 RUN pip3 install -r requirements.txt
 
 # Run our python script/application in the Docker container.
-CMD export GOOGLE_APPLICATION_CREDENTIALS="google_api_auth.json"
-CMD echo "Successfully loaded Google.Vision API key: $GOOGLE_APPLICATION_CREDENTIALS"
 CMD python maindb.py

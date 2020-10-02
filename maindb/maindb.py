@@ -35,11 +35,9 @@ def mainm():
         record = request.get_json()["art_image"]
         full_filename = os.path.join('/resource/img/', record)
         msg = "\nNow we are at" + os.getcwd()
-        try:
-            google_features = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv").loc[record]
-        except FileNotFoundError:
-            msg += "File not found: FeatureTable_GoogleAnnot.PCA.csv"
+        google_features = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0).loc[record]
         dominant_colors = read_color(full_filename)
+        # TODO: adding try/except for flask
 
         ### TEMPORARY HARD CODE
         return render_template("display.html", art_image=full_filename, msg=msg,

@@ -22,11 +22,11 @@ def mainm():
         # to this id and return it back to the user.
         record = request.get_json()["art_image"]
         full_filename = os.path.join('img/', record)
-        msg = "\nNow we are at" + os.getcwd()
-        try:
-            google_features = pd.read_csv("FeatureTable_GoogleAnnot.PCA.csv")
-        except Exception as e:
-            msg = msg + '\n' + e
+        msg = "\nNow we are at" + os.getcwd() + '\n' + str(os.listdir())
+        # try:
+        #     google_features = pd.read_csv("FeatureTable_GoogleAnnot.PCA.csv")
+        # except Exception as e:
+        #     msg = msg + '\n' + e
 
         ### TEMPORARY HARD CODE
         return render_template("display.html", art_image=full_filename, msg=msg)

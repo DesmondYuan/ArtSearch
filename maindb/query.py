@@ -83,18 +83,23 @@ def get_dominant_color(fn):
     image = vision.Image(content=content)
     response = client.image_properties(image=image)
     colors = response.image_properties_annotation.dominant_colors.colors
-    return [(color.pixel_fraction, color.color.red, color.color.green, color.color.blue)
-            for color in colors]
+    colors = np.array([(color.pixel_fraction, color.color.red, color.color.green, color.color.blue)
+                        for color in colors])
+    return np.sort(colors, axis=0)[::-1]
 
 
 def color_distance(colors1, colors2):
     dist = 0
-    for c1, c2 in zip(colors1, colors2):
-        dR, dG, dB = c1[1]-c2[1], c1[2]-c2[2], c1[3]-c2[3]
-        fraction_weight = c1[0]*c2[0]
-        r_mean = (c1[1] + c2[1]) / 2
-        dcolor = np.sqrt((2+r_mean/256)*dR**2 + 4*dG**2 + (3-r_mean/256)*dB**2)
-        dist += fraction_weight * dcolor
+    for c1 in colors1:
+        tmp_dist = []
+        for c2 in colors2:
+            dR, dG, dB = c1[1]-c2[1], c1[2]-c2[2], c1[3]-c2[3]
+            fraction_weight = c1[0]*c2[0]
+            r_mean = (c1[1] + c2[1]) / 2
+            dcolor = np.sqrt((2+r_mean/256)*dR**2 + 4*dG**2 + (3-r_mean/256)*dB**2)
+            tmp_dist.append([dcolor, fraction_weight])
+        best_dcolor = np.sort(tmp_dist, axis=0)[0]  # pick the closest color pair
+        dist += best_dcolor[0] * best_dcolor[1]
     #print("Color distance for {}, {} = {}".format(fn1, fn2, dist))
     return dist
 

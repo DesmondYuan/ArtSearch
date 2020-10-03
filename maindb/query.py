@@ -24,7 +24,7 @@ def get_nearest(fn):
         'distance_3': get_nearest_use_distance_3(fn, fns),
         'distance_4': get_nearest_use_distance_4(fn, fns)
     })
-   return out
+    return out
 
 def get_metadata(fn):
     record = meta.loc[fn].to_dict()

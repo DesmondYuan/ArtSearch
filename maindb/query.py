@@ -16,15 +16,15 @@ path = "/resource/img/"
 
 def get_nearest(fn):
     # TODO: adding try/except for flask
+    out = {'distance_1': get_nearest_use_distance_1(fn, fns)}
     fns = [os.path.join(path, i) for i in os.listdir()]
     fn = os.path.join(path, fn)
-    out = {
-        'distance_1': get_nearest_use_distance_1(fn, fns),
+    out.update({
         'distance_2': get_nearest_use_distance_2(fn, fns),
         'distance_3': get_nearest_use_distance_3(fn, fns),
         'distance_4': get_nearest_use_distance_4(fn, fns),
-    }
-    return out
+    })
+   return out
 
 def get_metadata(fn):
     record = meta.loc[fn].to_dict()

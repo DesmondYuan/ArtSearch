@@ -9,3 +9,4 @@ pandas
 numpy
 google-cloud-vision
 scikit-learn
+pillow

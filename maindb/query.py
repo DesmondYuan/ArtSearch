@@ -16,11 +16,12 @@ os.chdir("/resource/img/")
 
 def get_nearest(fn):
     # TODO: adding try/except for flask
+    fns = os.listdir()
     out = {
-        'distance_1': get_nearest_use_distance_1(fn),
-        'distance_2': get_nearest_use_distance_2(fn),
-        'distance_3': get_nearest_use_distance_3(fn),
-        'distance_4': get_nearest_use_distance_4(fn),
+        'distance_1': get_nearest_use_distance_1(fn, fns),
+        'distance_2': get_nearest_use_distance_2(fn, fns),
+        'distance_3': get_nearest_use_distance_3(fn, fns),
+        'distance_4': get_nearest_use_distance_4(fn, fns),
     }
     return out
 
@@ -30,11 +31,11 @@ def get_metadata(fn):
 '''
 Distance 1: Cosine distance on GVision features
 '''
-def get_nearest_use_distance_1(fn):
+def get_nearest_use_distance_1(fn, fns):
     y = df_selected_PCs.loc[fn].values.reshape(1, -1)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in df_selected_PCs.index:
+    for fn_iter in fns:
         if fn_iter != fn:
             x = df_selected_PCs.loc[fn].values.reshape(1, -1)
             score = 1 - cosine_similarity(y, x)
@@ -57,11 +58,11 @@ def cosine_distance_GVision_PCA(fn1, fn2):
 '''
 Distance 2: Color distance in RGB space
 '''
-def get_nearest_use_distance_2(fn):
+def get_nearest_use_distance_2(fn, fns):
     y = get_dominant_color(fn)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in df_selected_PCs.index:
+    for fn_iter in fns:
         if fn_iter != fn:
             x = get_dominant_color(fn_iter)
             score = color_distance(y, x)
@@ -96,11 +97,11 @@ def color_distance(colors1, colors2):
 Distance 3: Cosine distance on rawdata (center cropping)
 '''
 
-def get_nearest_use_distance_3(fn):
+def get_nearest_use_distance_3(fn, fns):
     y = get_pic_array(fn)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in df_selected_PCs.index:
+    for fn_iter in fns:
         if fn_iter != fn:
             x = get_pic_array(fn_iter)
             score = cosine_distance_raw_center_crop(y, x)
@@ -133,11 +134,11 @@ def cosine_distance_raw_center_crop(pic1, pic2):
 '''
 Distance 4: Cosine distance on rawdata (center cropping)
 '''
-def get_nearest_use_distance_4(fn):
+def get_nearest_use_distance_4(fn, fns):
     y = get_pic_array(fn)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in df_selected_PCs.index:
+    for fn_iter in fns:
         if fn_iter != fn:
             x = get_pic_array(fn_iter)
             score = euclidean_distance_raw_center_crop(y, x)

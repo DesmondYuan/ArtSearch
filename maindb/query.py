@@ -16,14 +16,13 @@ path = "/resource/img/"
 
 def get_nearest(fn):
     # TODO: adding try/except for flask
-    out = {'distance_1': get_nearest_use_distance_1(fn, fns)}
-    fns = [os.path.join(path, i) for i in os.listdir()]
-    fn = os.path.join(path, fn)
-    out.update({
+    fns = os.listdir()
+    out = {
+        'distance_1': get_nearest_use_distance_1(fn, fns),
         'distance_2': get_nearest_use_distance_2(fn, fns),
         'distance_3': get_nearest_use_distance_3(fn, fns),
         'distance_4': get_nearest_use_distance_4(fn, fns)
-    })
+    }
     return out
 
 def get_metadata(fn):
@@ -60,6 +59,8 @@ def cosine_distance_GVision_PCA(fn1, fn2):
 Distance 2: Color distance in RGB space
 '''
 def get_nearest_use_distance_2(fn, fns):
+    fn = os.path.join(path, fn)
+    fns = [os.path.join(path, f) for f in fns]
     y = get_dominant_color(fn)
     best_score = 1e10
     best_match = "No match found"
@@ -101,6 +102,8 @@ Distance 3: Cosine distance on rawdata (center cropping)
 '''
 
 def get_nearest_use_distance_3(fn, fns):
+    fn = os.path.join(path, fn)
+    fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)
     best_score = 1e10
     best_match = "No match found"
@@ -138,6 +141,8 @@ def cosine_distance_raw_center_crop(pic1, pic2):
 Distance 4: Cosine distance on rawdata (center cropping)
 '''
 def get_nearest_use_distance_4(fn, fns):
+    fn = os.path.join(path, fn)
+    fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)
     best_score = 1e10
     best_match = "No match found"

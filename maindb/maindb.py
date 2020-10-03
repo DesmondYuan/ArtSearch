@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import os
-from . import query
+from utils import query
 
 app = Flask(__name__)
 

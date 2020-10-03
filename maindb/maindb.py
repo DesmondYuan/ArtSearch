@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import os
-from query import get_google_feature, get_dominant_color, get_nearest
+from query import get_metadata, get_google_feature, get_dominant_color, get_nearest
 
 app = Flask(__name__)
 

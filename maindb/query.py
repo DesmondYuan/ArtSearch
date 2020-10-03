@@ -12,7 +12,7 @@ from sklearn.metrics import mean_squared_error as MSE
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
-# os.chdir("/resource/img/")
+os.chdir("/resource/img/")
 
 def get_nearest(fn):
     # TODO: adding try/except for flask

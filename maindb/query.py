@@ -45,7 +45,7 @@ def get_nearest_use_distance_1(fn, fns):
     return {best_match: best_score}
 
 def get_google_feature(fn):
-    feature = features_g_df.loc[record]
+    feature = features_g_df.loc[fn]
     return feature
 
 def cosine_distance_GVision_PCA(fn1, fn2):

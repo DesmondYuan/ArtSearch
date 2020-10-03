@@ -37,7 +37,7 @@ def get_nearest_use_distance_1(fn, fns):
     best_match = "No match found"
     for fn_iter in fns:
         if fn_iter != fn:
-            x = features_g_df.loc[fn].values.reshape(1, -1)
+            x = features_g_df.loc[fn_iter].values.reshape(1, -1)
             score = 1 - cosine_similarity(y, x)
             if best_score > score:
                 best_match = fn_iter

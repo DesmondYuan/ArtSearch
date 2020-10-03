@@ -22,7 +22,7 @@ def get_nearest(fn):
     out.update({
         'distance_2': get_nearest_use_distance_2(fn, fns),
         'distance_3': get_nearest_use_distance_3(fn, fns),
-        'distance_4': get_nearest_use_distance_4(fn, fns),
+        'distance_4': get_nearest_use_distance_4(fn, fns)
     })
    return out
 

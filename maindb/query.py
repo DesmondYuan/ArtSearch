@@ -33,12 +33,12 @@ def get_metadata(fn):
 Distance 1: Cosine distance on GVision features
 '''
 def get_nearest_use_distance_1(fn, fns):
-    y = df_selected_PCs.loc[fn].values.reshape(1, -1)
+    y = features_g_df.loc[fn].values.reshape(1, -1)
     best_score = 1e10
     best_match = "No match found"
     for fn_iter in fns:
         if fn_iter != fn:
-            x = df_selected_PCs.loc[fn].values.reshape(1, -1)
+            x = features_g_df.loc[fn].values.reshape(1, -1)
             score = 1 - cosine_similarity(y, x)
             if best_score > score:
                 best_match = fn_iter
@@ -49,8 +49,8 @@ def get_google_feature(fn):
     return feature
 
 def cosine_distance_GVision_PCA(fn1, fn2):
-    x1 = df_selected_PCs.loc[fn1].values.reshape(1, -1)
-    x2 = df_selected_PCs.loc[fn2].values.reshape(1, -1)
+    x1 = features_g_df.loc[fn1].values.reshape(1, -1)
+    x2 = features_g_df.loc[fn2].values.reshape(1, -1)
     dist = 1 - cosine_similarity(x1, x2)
     print("Cosine distance on GVision features for {}, {} = {}".format(fn1, fn2, dist))
     return dist

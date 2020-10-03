@@ -1,7 +1,6 @@
 import os
 import io
 import os
-import tqdm
 import pandas as pd
 import numpy as np
 from google.cloud import vision
@@ -10,8 +9,6 @@ from google.cloud import vision
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import mean_squared_error as MSE
 
-print(os.getcwd())
-print(os.listdir())
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()

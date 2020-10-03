@@ -10,7 +10,7 @@ def mainm():
 
     if request.method == "POST":
         filename = request.get_json()["art_image"]
-        meta = query.get_metadata(filename)
+        meta = get_metadata(filename)
         google_features = get_google_feature(filename)
         dominant_colors = get_dominant_color(filename)
         nearest = get_nearest(filename)

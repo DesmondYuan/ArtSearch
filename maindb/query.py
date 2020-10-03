@@ -41,6 +41,7 @@ def get_nearest_use_distance_1(fn, fns):
             score = 1 - cosine_similarity(y, x)
             if best_score > score:
                 best_match = fn_iter
+                best_score = score
     return {best_match: best_score}
 
 def get_google_feature(fn):
@@ -70,6 +71,7 @@ def get_nearest_use_distance_2(fn, fns):
             score = color_distance(y, x)
             if best_score > score:
                 best_match = fn_iter
+                best_score = score
     return {best_match: best_score}
 
 
@@ -113,6 +115,7 @@ def get_nearest_use_distance_3(fn, fns):
             score = cosine_distance_raw_center_crop(y, x)
             if best_score > score:
                 best_match = fn_iter
+                best_score = score
     return {best_match: best_score}
 
 
@@ -152,6 +155,7 @@ def get_nearest_use_distance_4(fn, fns):
             score = euclidean_distance_raw_center_crop(y, x)
             if best_score > score:
                 best_match = fn_iter
+                best_score = score
     return {best_match: best_score}
 
 

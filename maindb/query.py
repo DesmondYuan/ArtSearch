@@ -8,8 +8,11 @@ from PIL import Image
 from google.cloud import vision
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import mean_squared_error as MSE
+import pickle as pkl
+
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
+color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
 path = "/resource/img/"
@@ -77,6 +80,10 @@ def get_nearest_use_distance_2_fn(fn, fns):
 
 
 def get_dominant_color(fn):
+    color = color_pkl[fn]
+    return color
+
+def get_dominant_color_deprecated(fn):
     if path not in fn:
         fn = os.path.join(path, fn)
     with io.open(fn, 'rb') as image_file:

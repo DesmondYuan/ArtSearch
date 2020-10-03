@@ -73,6 +73,8 @@ def get_nearest_use_distance_2(fn, fns):
 
 
 def get_dominant_color(fn):
+    if path not in fn:
+        fn = os.path.join(path, fn)
     with io.open(fn, 'rb') as image_file:
         content = image_file.read()
     image = vision.Image(content=content)

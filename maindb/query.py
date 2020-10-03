@@ -16,7 +16,7 @@ path = "/resource/img/"
 
 def get_nearest(fn):
     # TODO: adding try/except for flask
-    fns = os.listdir()
+    fns = os.listdir(path)
     out = {
         'distance_1': get_nearest_use_distance_1(fn, fns),
         'distance_2': get_nearest_use_distance_2(fn, fns),

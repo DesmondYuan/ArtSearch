@@ -14,7 +14,7 @@ def mainm():
         google_features = get_google_feature(filename)
         dominant_colors = get_dominant_color(filename)
         nearest = get_nearest(filename)
-        msg = "\nLoading filename successful! Now we are at root:" + os.getcwd(filename)
+        msg = "\nLoading filename successful! Now we are at root:" + os.getcwd()
 
         return render_template("display.html", art_image=full_filename, msg=msg,
                                 google_features=str(google_features), dominant_colors=str(dominant_colors),

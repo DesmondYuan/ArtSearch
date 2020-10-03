@@ -9,7 +9,6 @@ from PIL import Image
 from google.cloud import vision
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import mean_squared_error as MSE
-import dask.array as da
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)

@@ -16,13 +16,14 @@ path = "/resource/img/"
 
 def get_nearest(fn):
     # TODO: adding try/except for flask
-    fns = os.listdir(path)
-    out = {
-        'distance_1': get_nearest_use_distance_1(fn, fns),
-        'distance_2': get_nearest_use_distance_2(fn, fns),
-        'distance_3': get_nearest_use_distance_3(fn, fns),
-        'distance_4': get_nearest_use_distance_4(fn, fns)
-    }
+    if True:  # TODO: pass a boole for filename/file
+        fns = os.listdir(path)
+        out = {
+            'distance_1': get_nearest_use_distance_1_fn(fn, fns),
+            'distance_2': get_nearest_use_distance_2_fn(fn, fns),
+            'distance_3': get_nearest_use_distance_3_fn(fn, fns),
+            'distance_4': get_nearest_use_distance_4_fn(fn, fns)
+        }
     return out
 
 def get_metadata(fn):
@@ -31,7 +32,7 @@ def get_metadata(fn):
 '''
 Distance 1: Cosine distance on GVision features
 '''
-def get_nearest_use_distance_1(fn, fns):
+def get_nearest_use_distance_1_fn(fn, fns):
     y = features_g_df.loc[fn].values.reshape(1, -1)
     best_score = 1e10
     best_match = "No match found"
@@ -59,7 +60,7 @@ def cosine_distance_GVision_PCA(fn1, fn2):
 '''
 Distance 2: Color distance in RGB space
 '''
-def get_nearest_use_distance_2(fn, fns):
+def get_nearest_use_distance_2_fn(fn, fns):
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_dominant_color(fn)
@@ -108,7 +109,7 @@ def color_distance(colors1, colors2):
 Distance 3: Cosine distance on rawdata (center cropping)
 '''
 
-def get_nearest_use_distance_3(fn, fns):
+def get_nearest_use_distance_3_fn(fn, fns):
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)
@@ -148,7 +149,7 @@ def cosine_distance_raw_center_crop(pic1, pic2):
 '''
 Distance 4: Cosine distance on rawdata (center cropping)
 '''
-def get_nearest_use_distance_4(fn, fns):
+def get_nearest_use_distance_4_fn(fn, fns):
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)

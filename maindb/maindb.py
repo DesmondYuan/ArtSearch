@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import os
-from utils import query
+from query import get_google_feature, get_dominant_color, get_nearest
 
 app = Flask(__name__)
 
@@ -11,8 +11,8 @@ def mainm():
     if request.method == "POST":
         filename = request.get_json()["art_image"]
         meta = query.get_metadata(filename)
-        google_features = query.get_google_feature(filename)
-        dominant_colors = query.get_dominant_color(filename)
+        google_features = get_google_feature(filename)
+        dominant_colors = get_dominant_color(filename)
         nearest = get_nearest(filename)
         msg = "\nLoading filename successful! Now we are at root:" + os.getcwd(filename)
 

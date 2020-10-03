@@ -7,7 +7,7 @@ EXPOSE 8082
 
 # Copy our python script over to the Docker container.
 COPY maindb.py maindb.py
-COPY query.py utils/query.py
+COPY query.py query.py
 COPY requirements.txt requirements.txt
 COPY templates/display.html templates/display.html
 

@@ -93,7 +93,7 @@ def color_distance(colors1, colors2):
         r_mean = (c1[1] + c2[1]) / 2
         dcolor = np.sqrt((2+r_mean/256)*dR**2 + 4*dG**2 + (3-r_mean/256)*dB**2)
         dist += fraction_weight * dcolor
-    print("Color distance for {}, {} = {}".format(fn1, fn2, dist))
+    #print("Color distance for {}, {} = {}".format(fn1, fn2, dist))
     return dist
 
 
@@ -134,7 +134,7 @@ def get_pic_array(img_filename):
 def cosine_distance_raw_center_crop(pic1, pic2):
     x1, x2 = crop_to_square(pic1, pic2)
     dist = 1 - np.mean([cosine_similarity(x1[:,:,layer], x2[:,:,layer]) for layer in range(3)])
-    print("Cosine distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
+    # print("Cosine distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
     return dist
 
 '''
@@ -155,10 +155,8 @@ def get_nearest_use_distance_4(fn, fns):
     return {best_match: best_score}
 
 
-def euclidean_distance_raw_center_crop(fn1, fn2):
-    pic1 = get_pic_array(fn1)
-    pic2 = get_pic_array(fn2)
+def euclidean_distance_raw_center_crop(pic1, pic2):
     x1, x2 = crop_to_square(pic1, pic2)
     dist = np.mean([MSE(x1[:,:,layer], x2[:,:,layer], squared=False) for layer in range(3)])
-    print("Euclidean distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
+    # print("Euclidean distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
     return dist

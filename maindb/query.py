@@ -64,8 +64,8 @@ def cosine_distance_GVision_PCA(fn1, fn2):
 Distance 2: Color distance in RGB space
 '''
 def get_nearest_use_distance_2_fn(fn, fns):
-    fn = os.path.join(path, fn)
-    fns = [os.path.join(path, f) for f in fns]
+    # fn = os.path.join(path, fn)
+    # fns = [os.path.join(path, f) for f in fns]
     y = get_dominant_color(fn)
     best_score = 1e10
     best_match = "No match found"

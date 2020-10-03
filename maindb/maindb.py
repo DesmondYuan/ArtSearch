@@ -5,7 +5,7 @@ import numpy as np
 from google.cloud import vision
 import io
 
-sclient = vision.ImageAnnotatorClient()
+client = vision.ImageAnnotatorClient()
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 def read_color(fn):
     with io.open(fn, 'rb') as image_file:

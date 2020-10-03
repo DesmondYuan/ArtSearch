@@ -15,5 +15,4 @@ COPY templates/display.html templates/display.html
 RUN pip3 install -r requirements.txt
 
 # Run our python script/application in the Docker container.
-CMD export GOOGLE_APPLICATION_CREDENTIALS="/resource/google_api_auth.json" && \
-    export FLASK_APP=maindb.py && python -m flask run
+CMD export GOOGLE_APPLICATION_CREDENTIALS="/resource/google_api_auth.json" && python maindb.py

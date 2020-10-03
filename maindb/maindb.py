@@ -16,7 +16,7 @@ def mainm():
         nearest = get_nearest(filename)
         msg = "\nLoading filename successful! Now we are at root:" + os.getcwd()
 
-        return render_template("display.html", art_image=full_filename, msg=msg,
+        return render_template("display.html", art_image=filename, msg=msg,
                                 google_features=str(google_features), dominant_colors=str(dominant_colors),
                                 nearest_images=str(nearest))
     else:

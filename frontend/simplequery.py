@@ -9,7 +9,7 @@ app = Flask(__name__)
 def mainm():
     if request.method == "POST":  # User clicked submit button
         art_image = request.form["art_image"]
-        # send this data_id to maindb.py
+        # send this data id to maindb.py
         resp = requests.post(url=db_url, json={"art_image": art_image})
         return resp.content
     else:

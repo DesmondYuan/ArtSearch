@@ -10,10 +10,11 @@ COPY maindb.py maindb.py
 COPY query.py query.py
 COPY requirements.txt requirements.txt
 COPY templates/display.html templates/display.html
-
+# RUN apt-get update && apt-get install -y gcc python3-dev
 
 # Need to download and install the python package e.g. Flask, requests etc.
 RUN pip3 install -r requirements.txt
 
 # Run our python script/application in the Docker container.
-CMD export GOOGLE_APPLICATION_CREDENTIALS="/resource/google_api_auth.json" && python maindb.py
+CMD export GOOGLE_APPLICATION_CREDENTIALS="/static/google_vision_credential.json" && python maindb.py
+

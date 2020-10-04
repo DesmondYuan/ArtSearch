@@ -16,7 +16,7 @@ import tqdm
 features_g_df = pd.read_csv("/static/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 pooling_df = pd.read_csv("/static/FeatureTable_Pooling.csv", index_col=0)
 color_pkl = pkl.load(open("/static/FeatureTable_DominantColors.pkl", "rb"))
-meta = pd.read_csv("/static/metadata_mod.csv", index_col=0)
+meta = pd.read_csv("/static/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
 path = "/static/img"  # on master node
 # path = "/resource/img/"

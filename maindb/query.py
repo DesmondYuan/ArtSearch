@@ -141,7 +141,7 @@ def get_nearest_use_distance_3_fn(fn, fns):
 
 def get_pooled_img(fn):
     feature = pooling_df.loc[fn]
-    return feature.values.reshape([-1, 1])
+    return feature.values.reshape([1, -1])
 
 def get_nearest_use_distance_3_fn_deprecated(fn, fns):
     cc = time.time()

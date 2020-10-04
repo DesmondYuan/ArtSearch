@@ -12,7 +12,7 @@ def mainm():
         filename = request.get_json()["art_image"]
         meta = get_metadata(filename)
         google_features = get_google_feature(filename)
-        dominant_colors = get_dominant_color(filename)
+        dominant_colors = get_dominant_color(filename)  # comment out this line for faster calculation
         nearest = get_nearest(filename)
         msg = "\nLoading filename successful! Now we are at root:" + os.getcwd()
 

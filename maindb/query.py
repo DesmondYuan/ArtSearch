@@ -25,6 +25,7 @@ path = "/static/img"  # on master node
 def get_nearest(fn):
     # TODO: adding try/except for flask
     if True:  # TODO: pass a boole for filename/file
+        print("Getting the nearest...")
         fns = os.listdir(path)
         out = {
             "distance_1": get_nearest_use_distance_1_fn(fn, fns),

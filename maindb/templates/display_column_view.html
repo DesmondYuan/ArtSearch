@@ -25,44 +25,42 @@
     <table border="1" >
         <tr>
             <th> Distance methods </th>
-            <td> Distance 1: <br> Google Vision API features </td>
-            <td> Distance 2: <br> Cosine distance on dominant colors </td>
-            <td> Distance 3: <br> Cosine distance on raw img with pooling </td>
-            <td> Distance 4: <br> Euclidean distance on raw img with pooling </td>
+            <th> Image </th>
+            <th> Score </th>
+            <th> Filename </th>
         </tr>
         <tr>
-            <th> Image </th>
+            <td> Distance 1: <br> Google Vision API features </td>
             <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
                             vertical-align:middle">
                 <img src="{{url_for('static', filename=match1)}}" style="max-height:100%; max-width:100%" />
             </td>
+            <td> {{score1}} </td>
+            <td> {{match1}} </td>
+        </tr>
+        <tr>
+            <td> Distance 2: <br> Cosine distance on dominant colors </td>
             <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
                             vertical-align:middle">
                 <img src="{{url_for('static', filename=match2)}}" style="max-height:100%; max-width:100%" />
             </td>
+            <td>  {{score2}} </td>
+            <td> {{match2}} </td>
+        </tr>
+        <tr>
+            <td> Distance 3: <br> Cosine distance on raw img with pooling </td>
             <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
                             vertical-align:middle">
                 <img src="{{url_for('static', filename=match3)}}" style="max-height:100%; max-width:100%" />
             </td>
-            <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
-                            vertical-align:middle">
-                <img src="{{url_for('static', filename=match4)}}" style="max-height:100%; max-width:100%" />
-            </td>
-    </tr>
-        <tr>
-            <th> Score </th>
             <td> {{score3}} </td>
-            <td> {{score1}} </td>
-            <td>  {{score2}} </td>
-        </tr>
-        <tr>
-
-            <td> {{match1}} </td>
-            <td> {{match2}} </td>
             <td> {{match3}} </td>
         </tr>
         <tr>
-            <th> Filename </th>
+            <td> Distance 4: <br> Euclidean distance on raw img with pooling </td>
+            <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
+                            vertical-align:middle">
+                <img src="{{url_for('static', filename=match4)}}" style="max-height:100%; max-width:100%" />
             </td>
             <td> {{score4}} </td>
             <td> {{match4}} </td>

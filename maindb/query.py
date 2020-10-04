@@ -12,11 +12,12 @@ import pickle as pkl
 import time
 import tqdm
 from dask import delayed
+import dask.dataframe as dd
 import dask_image.imread
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
-pooling_df = pd.read_csv("/resource/FeatureTable_Pooling.csv", index_col=0)
+pooling_df = dd.read_csv("/resource/FeatureTable_Pooling.csv", index_col=0)
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
@@ -131,8 +132,6 @@ Distance 3: Cosine distance on rawdata (center cropping)
 def get_nearest_use_distance_3_fn(fn, fns):
     cc = time.time()
     fns = list(set(fns) - set(fn))
-    fn = os.path.join(path, fn)
-    fns = [os.path.join(path, f) for f in fns]
     y = get_pooled_img(fn)
     scores = []
     for fn_iter in tqdm.tqdm(fns):

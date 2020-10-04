@@ -192,7 +192,7 @@ Distance 4: Cosine distance on rawdata (center cropping)
 
 def get_nearest_use_distance_4_fn(fn, fns):
     cc = time.time()
-    fns = list(set(fns) - set(fn))
+    fns = list(set(fns) - set([fn]))
     y = get_pooled_img(fn)
     scores = []
     for fn_iter in tqdm.tqdm(fns):

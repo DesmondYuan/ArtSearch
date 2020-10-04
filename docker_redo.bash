@@ -7,6 +7,8 @@ docker images | grep maindb | awk '{print $3 }' | xargs -I {} docker rmi  {}
 docker network ls | grep appNetwork | awk '{print $1 }' | xargs -I {} docker network rm  {}
 
 # RESTART
+sudo mount -o discard,defaults /dev/sdb /mnt/disks/ssd_disk
+sudo chmod a+w /mnt/disks/ssd_disk
 docker image build -t maindb -f maindb/Docker_db ./maindb
 docker image build -t simplequery -f frontend/Docker_frontend ./frontend
 docker network create appNetwork

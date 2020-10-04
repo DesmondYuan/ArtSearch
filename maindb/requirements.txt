@@ -11,4 +11,4 @@ google-cloud-vision
 scikit-learn
 pillow
 tqdm
-dask
+dask[main]

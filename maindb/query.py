@@ -12,8 +12,10 @@ import pickle as pkl
 import time
 import tqdm
 from dask import delayed
+from dask.distributed import Client
 
 
+client = Client(n_workers=4)
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
@@ -179,7 +181,7 @@ def get_nearest_use_distance_4_fn(fn, fns):
     scores = scores.compute()
     min_pos = np.argsort(scores)[0]
     return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
-    
+
 
 def euclidean_distance_raw_center_crop(pic1, pic2):
     x1, x2 = crop_to_square(pic1, pic2)

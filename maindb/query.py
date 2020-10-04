@@ -41,7 +41,7 @@ def get_metadata(fn):
     # meta = pd.read_csv("/static/metadata_mod.csv")
     # meta = pd.DataFrame(meta[meta["file_id"] == fn]).T
     # meta = meta.reset_index()
-    record = meta.loc[fn].to_dict()
+    record = meta.loc[[fn]].transpose()
 
     return record
 

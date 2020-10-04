@@ -6,10 +6,8 @@ FROM python:3.7-slim-buster
 EXPOSE 8082
 
 # Copy our python script over to the Docker container.
-COPY maindb.py maindb.py
-COPY query.py query.py
-COPY requirements.txt requirements.txt
-COPY templates templates
+COPY . .
+
 # RUN apt-get update && apt-get install -y gcc python3-dev # for dask clients
 
 # Need to download and install the python package e.g. Flask, requests etc.

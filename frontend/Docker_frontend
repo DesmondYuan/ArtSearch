@@ -8,8 +8,7 @@ ENV DB_HOST='localhost'
 EXPOSE 8081
 
 # Copy the python script over to the Docker container.
-COPY requirements.txt requirements.txt
-COPY templates templates
+COPY . .
 
 # Need to download and install packages
 RUN pip3 install -r requirements.txt

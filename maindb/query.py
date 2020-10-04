@@ -28,8 +28,8 @@ def get_nearest(fn):
         out = {
             'distance_1': get_nearest_use_distance_1_fn(fn, fns),
             'distance_2': get_nearest_use_distance_2_fn(fn, fns),
-            'distance_3': delayed(get_nearest_use_distance_3_fn)(fn, fns),
-            'distance_4': delayed(get_nearest_use_distance_4_fn)(fn, fns)
+            'distance_3': delayed(get_nearest_use_distance_3_fn)(fn, fns).compute(),
+            'distance_4': delayed(get_nearest_use_distance_4_fn)(fn, fns).compute()
         }
     return out
 

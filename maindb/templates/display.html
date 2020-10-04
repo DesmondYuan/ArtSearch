@@ -6,8 +6,11 @@
 </head>
 
 <body>
-    <br><br>Below is the input information. <br>
-
+    <br>Below is the input information. <br>
+    {% for table in metadata %}
+    {{ table|safe }}
+    {% endfor %}
+    <br>
     <table border="1" >
         <tr><th> Input image </th></tr>
         <tr><td> {{art_image}} </th></td>
@@ -17,10 +20,8 @@
             <img src="{{url_for('static', filename=art_image)}}" style="max-height:100%; max-width:100%" />
     </tr>
     </table>
+    <br>
 
-    {% for table in metadata %}
-    {{ table|safe }}
-    {% endfor %}
 
     <br><br>Below it the most similar pictures based on 4 different distance functions. <br>
     <table border="1" >

@@ -1,12 +1,9 @@
 from flask import Flask, render_template, request
 import os
 from query import get_metadata, get_google_feature, get_dominant_color, get_nearest
-from dask.distributed import Client
 
 
 app = Flask(__name__)
-
-
 @app.route("/", methods=["POST", "GET"])
 def mainm():
 
@@ -26,6 +23,7 @@ def mainm():
 
 
 if __name__ == "__main__":
-    client = Client()
-    print("Dask client started: ", client)
+    # from dask.distributed import Client
+    # client = Client()
+    # print("Dask client started: ", client)
     app.run(host="0.0.0.0", port=8082, debug=True)

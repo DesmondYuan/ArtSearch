@@ -11,8 +11,6 @@ from sklearn.metrics import mean_squared_error as MSE
 import pickle as pkl
 import time
 import tqdm
-from dask import delayed
-import dask_image.imread
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
@@ -143,7 +141,7 @@ def get_nearest_use_distance_3_fn(fn, fns):
 
 def get_pooled_img(fn):
     feature = pooling_df.loc[fn]
-    return feature
+    return feature.reshape([-1, 1])
 
 def get_nearest_use_distance_3_fn_deprecated(fn, fns):
     cc = time.time()
@@ -169,6 +167,7 @@ def crop_to_square(pic_array1, pic_array2):
 
 
 def get_pic_array(img_filename, res=32, use_dask=True):
+    import dask_image.imread
     if use_dask:
         im = dask_image.imread.imread(img_filename)[0]
         pic = im.mean(axis=2)[::im.shape[0]//res, ::im.shape[1]//res][:res, :res]

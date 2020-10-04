@@ -11,6 +11,3 @@ google-cloud-vision
 scikit-learn
 pillow
 tqdm
-dask[complete]
-scikit-image
-dask-image

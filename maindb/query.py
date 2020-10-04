@@ -128,7 +128,7 @@ Distance 3: Cosine distance on rawdata (center cropping)
 
 def get_nearest_use_distance_3_fn(fn, fns):
     cc = time.time()
-    fns = list(set(fns) - set(fn))
+    fns = list(set(fns) - set([fn]))
     y = get_pooled_img(fn)
     scores = []
     for fn_iter in tqdm.tqdm(fns):
@@ -145,7 +145,7 @@ def get_pooled_img(fn):
 
 def get_nearest_use_distance_3_fn_deprecated(fn, fns):
     cc = time.time()
-    fns = list(set(fns) - set(fn))
+    fns = list(set(fns) - set([fn]))
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)

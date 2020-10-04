@@ -18,4 +18,4 @@ docker network create appNetwork
 # trying to mount a remote drive
 docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb --mount type=bind,source=/mnt/disks/ssd_disk/resource,target=/resource --network appNetwork simplequery
 docker run --name maindb -d --mount type=bind,source=/mnt/disks/ssd_disk/resource,target=/resource --network appNetwork maindb
-sleep 2 && docker ps -a && docker logs simplequery && docker logs maindb
+sleep 5 && docker ps -a && docker logs simplequery && docker logs maindb

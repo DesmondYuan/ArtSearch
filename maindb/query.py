@@ -9,6 +9,7 @@ from google.cloud import vision
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import mean_squared_error as MSE
 import pickle as pkl
+import time
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
@@ -36,6 +37,7 @@ def get_metadata(fn):
 Distance 1: Cosine distance on GVision features
 '''
 def get_nearest_use_distance_1_fn(fn, fns):
+    cc = time.time()
     y = features_g_df.loc[fn].values.reshape(1, -1)
     best_score = 1e10
     best_match = "No match found"
@@ -46,7 +48,7 @@ def get_nearest_use_distance_1_fn(fn, fns):
             if best_score > score:
                 best_match = fn_iter
                 best_score = score
-    return {best_match: best_score}
+    return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
 
 def get_google_feature(fn):
     feature = features_g_df.loc[fn]
@@ -76,7 +78,8 @@ def get_nearest_use_distance_2_fn(fn, fns):
             if best_score > score:
                 best_match = fn_iter
                 best_score = score
-    return {best_match: best_score}
+    return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
+get_nearest_use_distance_2(fn, fns)
 
 
 def get_dominant_color(fn):
@@ -129,7 +132,7 @@ def get_nearest_use_distance_3_fn(fn, fns):
             if best_score > score:
                 best_match = fn_iter
                 best_score = score
-    return {best_match: best_score}
+    return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
 
 
 def crop_to_square(pic_array1, pic_array2):
@@ -169,7 +172,7 @@ def get_nearest_use_distance_4_fn(fn, fns):
             if best_score > score:
                 best_match = fn_iter
                 best_score = score
-    return {best_match: best_score}
+    return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
 
 
 def euclidean_distance_raw_center_crop(pic1, pic2):

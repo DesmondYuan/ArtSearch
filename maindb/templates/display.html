@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    <br><br>Below is the input information. <br>
 
     <table border="1" >
         <tr><th> Input image </th></tr>
@@ -48,28 +49,26 @@
                             vertical-align:middle">
                 <img src="{{url_for('static', filename=match4)}}" style="max-height:100%; max-width:100%" />
             </td>
-    </tr>
-        <tr>
-            <th> Score </th>
-            <td> {{score3}} </td>
-            <td> {{score1}} </td>
-            <td>  {{score2}} </td>
         </tr>
         <tr>
-
-            <td> {{match1}} </td>
-            <td> {{match2}} </td>
-            <td> {{match3}} </td>
+            <th> Score </th>
+            <td> {{score1}} </td>
+            <td> {{score2}} </td>
+            <td> {{score3}} </td>
+            <td> {{score4}} </td>
         </tr>
         <tr>
             <th> Filename </th>
-            </td>
-            <td> {{score4}} </td>
+            <td> {{match1}} </td>
+            <td> {{match2}} </td>
+            <td> {{match3}} </td>
             <td> {{match4}} </td>
         </tr>
-
-
     </table>
+
+    <br>Thanks for using our art search engine! <br>
+    <br>Developed by team The New Normal.
+    <br>Debbie Liske, Bo Yuan, Fahd Jadoon. <br>
 
     <!-- <p>Nearest images: {{ nearest_images }} </p></br>
     <p>Feature barcode from Google Vision API: {{ google_features }} </p></br>

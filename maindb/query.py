@@ -42,6 +42,7 @@ def get_metadata(fn):
     # meta = pd.DataFrame(meta[meta["file_id"] == fn]).T
     # meta = meta.reset_index()
     record = meta.loc[[fn]].transpose()
+    record = record.reset_index()
 
     return record
 
@@ -63,7 +64,7 @@ def get_nearest_use_distance_1_fn(fn, fns):
             if best_score > score:
                 best_match = fn_iter
                 best_score = score
-    return {"best_match": best_match, "score": best_score, "time": time.time() - cc}
+    return {"best_match": best_match, "score": np.mean(best_score), "time": time.time() - cc}
 
 
 def get_google_feature(fn):

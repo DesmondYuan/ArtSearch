@@ -17,7 +17,7 @@ def mainm():
 
         return render_template("display.html", art_image=filename, msg=msg,
                                 google_features=str(google_features), dominant_colors=str(dominant_colors),
-                                nearest_images=str(nearest))
+                                nearest_images=str(nearest), metadata=str(meta))
     else:
         return "maindb.py - This is get method - try using post -- "
 

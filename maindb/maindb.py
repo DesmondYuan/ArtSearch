@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import os
-from query import get_metadata, get_google_feature, get_dominant_color, get_nearest
+import pandas as pd
+
+# from query import get_metadata, get_google_feature, get_dominant_color, get_nearest
 
 app = Flask(__name__)
 
@@ -25,10 +27,23 @@ def mainm():
     #         nearest_images=str(nearest),
     #     )
 
+    df = pd.read_csv("/static/metadata.csv", index_col=0)
+    tmp = df.iloc[0, 0]
+
     if request.method == "POST":
+
         filename = request.get_json()["art_image"]
+        resource_list = os.listdir("/static")
+
+        fullfilename = os.path.join("img", filename)
         msg = "\nLoading filename successful! Now we are at root:" + os.getcwd()
-        return render_template("display.html", art_image=filename, msg=msg)
+        return render_template(
+            "display.html",
+            art_image=str(fullfilename),
+            md=tmp,
+            msg=msg,
+            resource_list=resource_list,
+        )
 
     else:
         return "maindb.py - This is get method - try using post -- "

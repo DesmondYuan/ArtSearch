@@ -41,7 +41,7 @@ def get_nearest_use_distance_1_fn(fn, fns):
     y = features_g_df.loc[fn].values.reshape(1, -1)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in fns:
+    for fn_iter in tqdm.tqdm(fns):
         if fn_iter != fn:
             x = features_g_df.loc[fn_iter].values.reshape(1, -1)
             score = 1 - cosine_similarity(y, x)
@@ -128,7 +128,7 @@ def get_nearest_use_distance_3_fn(fn, fns):
     y = get_pic_array(fn)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in fns:
+    for fn_iter in tqdm.tqdm(fns):
         if fn_iter != fn:
             x = get_pic_array(fn_iter)
             score = cosine_distance_raw_center_crop(y, x)
@@ -168,7 +168,7 @@ def get_nearest_use_distance_4_fn(fn, fns):
     y = get_pic_array(fn)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in fns:
+    for fn_iter in tqdm.tqdm(fns):
         if fn_iter != fn:
             x = get_pic_array(fn_iter)
             score = euclidean_distance_raw_center_crop(y, x)

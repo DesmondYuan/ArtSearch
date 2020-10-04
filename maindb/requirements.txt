@@ -10,3 +10,4 @@ numpy
 google-cloud-vision
 scikit-learn
 pillow
+tqdm

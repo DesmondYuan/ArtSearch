@@ -12,12 +12,11 @@ import pickle as pkl
 import time
 import tqdm
 from dask import delayed
-import dask.dataframe as dd
 import dask_image.imread
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
-pooling_df = dd.read_csv("/resource/FeatureTable_Pooling.csv", index_col=0)
+pooling_df = pd.read_csv("/resource/FeatureTable_Pooling.csv", index_col=0)
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()

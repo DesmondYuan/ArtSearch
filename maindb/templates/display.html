@@ -2,15 +2,18 @@
 <html>
 
 <head>
-    <title>Display</title>
+    <title> ArtSearch - The New Normal </title>
 </head>
 
 <body>
-    <br>Below is the input information. <br>
+    <h1>ArtSearch - AC295</h1>
+    Developed and team The New Normal (Debbie Liske, Bo Yuan, Fahd Jadoon) <br><br>
+
+    <h3>Below is the input information. </h3>
     {% for table in metadata %}
     {{ table|safe }}
     {% endfor %}
-    <br>
+    <br><br>
     <table border="1" >
         <tr><th> Input image </th></tr>
         <tr><td> {{art_image}} </th></td>
@@ -20,10 +23,11 @@
             <img src="{{url_for('static', filename=art_image)}}" style="max-height:100%; max-width:100%" />
     </tr>
     </table>
-    <br>
+    <br><br>
 
+    <h3>Below it the most similar pictures. </h3>
 
-    <br><br>Below it the most similar pictures based on 4 different distance functions. <br>
+    Below it the most similar pictures based on 4 different distance functions. <br>
     <table border="1" >
         <tr>
             <th> Distance methods </th>

@@ -16,6 +16,7 @@ import dask_image.imread
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
+pooling_df = pd.read_csv("/resource/FeatureTable_Pooling.csv", index_col=0)
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
@@ -128,6 +129,25 @@ Distance 3: Cosine distance on rawdata (center cropping)
 '''
 
 def get_nearest_use_distance_3_fn(fn, fns):
+    cc = time.time()
+    fns = list(set(fns) - set(fn))
+    fn = os.path.join(path, fn)
+    fns = [os.path.join(path, f) for f in fns]
+    y = get_pooled_img(fn)
+    scores = []
+    for fn_iter in tqdm.tqdm(fns):
+        x = get_pooled_img(fn_iter)
+        score = cosine_distance_raw_center_crop(y, x)
+        scores.append(score)
+    min_pos = np.argsort(scores)[0]
+    return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
+
+
+def get_pooled_img(fn):
+    feature = pooling_df.loc[fn]
+    return feature
+
+def get_nearest_use_distance_3_fn_deprecated(fn, fns):
     cc = time.time()
     fns = list(set(fns) - set(fn))
     fn = os.path.join(path, fn)

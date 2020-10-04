@@ -18,6 +18,7 @@ features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
+path = "resource/img"
 path = "/resource/img/"
 
 def get_nearest(fn):
@@ -27,8 +28,8 @@ def get_nearest(fn):
         out = {
             'distance_1': get_nearest_use_distance_1_fn(fn, fns),
             'distance_2': get_nearest_use_distance_2_fn(fn, fns),
-            'distance_3': get_nearest_use_distance_3_fn(fn, fns),
-            'distance_4': get_nearest_use_distance_4_fn(fn, fns)
+            'distance_3': delayed(get_nearest_use_distance_3_fn)(fn, fns),
+            'distance_4': delayed(get_nearest_use_distance_4_fn)(fn, fns)
         }
     return out
 
@@ -133,13 +134,11 @@ def get_nearest_use_distance_3_fn(fn, fns):
     y = get_pic_array(fn)
     scores = []
     for fn_iter in tqdm.tqdm(fns):
-        x = delayed(get_pic_array)(fn_iter)
-        score = delayed(cosine_distance_raw_center_crop)(y, x)
+        x = get_pic_array(fn_iter)
+        score = cosine_distance_raw_center_crop(y, x)
         scores.append(score)
-    scores = scores.compute()
     min_pos = np.argsort(scores)[0]
     return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
-
 
 def crop_to_square(pic_array1, pic_array2):
     a1, b1 = pic_array1.shape[0: 2]

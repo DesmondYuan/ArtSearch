@@ -26,5 +26,5 @@ def mainm():
 
 
 if __name__ == "__main__":
-    client = Client(n_workers=4)
+    client = Client()
     app.run(host="0.0.0.0", port=8082, debug=True)

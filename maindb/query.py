@@ -102,8 +102,12 @@ def get_dominant_color_deprecated(fn):
 def color_distance(colors1, colors2):
     dist = 0
     for c1 in colors1:
+        if c1[0]<0.05:
+            continue
         tmp_dist = []
         for c2 in colors2:
+            if c1[0]<0.05:
+                continue
             dR, dG, dB = c1[1]-c2[1], c1[2]-c2[2], c1[3]-c2[3]
             fraction_weight = c1[0]*c2[0]
             r_mean = (c1[1] + c2[1]) / 2

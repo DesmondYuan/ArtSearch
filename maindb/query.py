@@ -12,10 +12,8 @@ import pickle as pkl
 import time
 import tqdm
 from dask import delayed
-from dask.distributed import Client
 
 
-client = Client(n_workers=4)
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)

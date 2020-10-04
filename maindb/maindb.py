@@ -25,6 +25,10 @@ def mainm():
         match2 = os.path.join("img", df.loc["best_match", "distance_2"])
         match3 = os.path.join("img", df.loc["best_match", "distance_3"])
         match4 = os.path.join("img", df.loc["best_match", "distance_4"])
+        score1 = os.path.join("img", df.loc["best_score", "distance_1"])
+        score2 = os.path.join("img", df.loc["best_score", "distance_2"])
+        score3 = os.path.join("img", df.loc["best_score", "distance_3"])
+        score4 = os.path.join("img", df.loc["best_score", "distance_4"])
 
         # md = pd.DataFrame(meta, columns=["Descriptor", "Value"])
 
@@ -35,6 +39,10 @@ def mainm():
             match2=match2,
             match3=match3,
             match4=match4,
+            score1=score1,
+            score2=score2,
+            score3=score3,
+            score4=score4,
             google_features=str(google_features),
             dominant_colors=str(dominant_colors),
             nearest_images=str(nearest),
@@ -59,4 +67,3 @@ if __name__ == "__main__":
     # client = Client()
     # print("Dask client started: ", client)
     app.run(host="0.0.0.0", port=8082, debug=True)
-

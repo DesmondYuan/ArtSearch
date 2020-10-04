@@ -189,7 +189,21 @@ def cosine_distance_raw_center_crop(pic1, pic2, use_dask=True):
 '''
 Distance 4: Cosine distance on rawdata (center cropping)
 '''
+
 def get_nearest_use_distance_4_fn(fn, fns):
+    cc = time.time()
+    fns = list(set(fns) - set(fn))
+    y = get_pooled_img(fn)
+    scores = []
+    for fn_iter in tqdm.tqdm(fns):
+        x = get_pooled_img(fn_iter)
+        score = euclidean_distance_raw_center_crop(y, x)
+        scores.append(score)
+    min_pos = np.argsort(scores)[0]
+    return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
+
+
+def get_nearest_use_distance_4_fn_deprecated(fn, fns):
     cc = time.time()
     fns = list(set(fns) - set(fn))
     fn = os.path.join(path, fn)

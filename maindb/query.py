@@ -178,17 +178,18 @@ def get_nearest_use_distance_4_fn(fn, fns):
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)
-    scores = []
+    best_match = "Not found"
+    best_score = 1e10
     for fn_iter in tqdm.tqdm(fns):
-        x = delayed(get_pic_array)(fn_iter)
-        score = delayed(euclidean_distance_raw_center_crop)(y, x)
-        scores.append(score)
-    scores = scores.compute()
-    min_pos = np.argsort(scores)[0]
-    return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
+        x = get_pic_array(fn_iter)
+        score = euclidean_distance_raw_center_crop(y, x)
+        if best_score > score:
+            best_score = score
+            best_match = fn_iter
+    return {"best_match": best_match, "score": score, "time":time.time()-cc}
 
 
-def cosine_distance_raw_center_crop(pic1, pic2, use_dask=True):
+def euclidean_distance_raw_center_crop(pic1, pic2, use_dask=True):
     if use_dask:
         dist = np.mean(MSE(pic1, pic2))
     else:

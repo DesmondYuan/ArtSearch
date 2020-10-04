@@ -71,7 +71,7 @@ def get_nearest_use_distance_2_fn(fn, fns):
     y = get_dominant_color(fn)
     best_score = 1e10
     best_match = "No match found"
-    for fn_iter in fns:
+    for fn_iter in tqdm.tqdm(fns):
         if fn_iter != fn:
             x = get_dominant_color(fn_iter)
             score = color_distance(y, x)
@@ -79,7 +79,6 @@ def get_nearest_use_distance_2_fn(fn, fns):
                 best_match = fn_iter
                 best_score = score
     return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
-get_nearest_use_distance_2(fn, fns)
 
 
 def get_dominant_color(fn):

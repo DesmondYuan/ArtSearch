@@ -6,10 +6,39 @@
 </head>
 
 <body>
-    <p>Message: {{ msg }} </p> </br>
-    <p>Name of the image you requested {{ art_image }} </p></br>
-    <p>Details: {{ metadata }} </p></br>
-    <p> <img src="{{url_for('static', filename=art_image)}}"></p>
+    Below is the picture you selected with the four most similar pictures to the right.
+
+    {% for table in metadata %}
+    {{ table|safe }}
+    {% endfor %}
+
+    <table>
+        <tr>
+            <td style="width:250px; height:250px; background-color:rgba(146, 147, 151, 0.24);text-align:center;
+                vertical-align:middle">
+                <img src="{{url_for('static', filename=art_image)}}" style="max-height:100%; max-width:100%" />
+            </td>
+            <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
+                            vertical-align:middle">
+                <img src="{{url_for('static', filename=match1)}}" style="max-height:100%; max-width:100%" />
+            </td>
+            <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
+                            vertical-align:middle">
+                <img src="{{url_for('static', filename=match2)}}" style="max-height:100%; max-width:100%" />
+            </td>
+            <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
+                            vertical-align:middle">
+                <img src="{{url_for('static', filename=match3)}}" style="max-height:100%; max-width:100%" />
+            </td>
+            <td style="width:250px; height:250px; background-color:rgb(253, 250, 250);text-align:center;
+                            vertical-align:middle">
+                <img src="{{url_for('static', filename=match4)}}" style="max-height:100%; max-width:100%" />
+            </td>
+        </tr>
+
+
+    </table>
+
     <p>Nearest images: {{ nearest_images }} </p></br>
     <p>Feature barcode from Google Vision API: {{ google_features }} </p></br>
     <p>Dominant colors from Google Vision API {{ dominant_colors }} </p></br>

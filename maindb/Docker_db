@@ -10,6 +10,7 @@ COPY maindb.py maindb.py
 COPY query.py query.py
 COPY requirements.txt requirements.txt
 COPY templates/display.html templates/display.html
+COPY templates/metadata.html templates/metadata.html
 # RUN apt-get update && apt-get install -y gcc python3-dev
 
 # Need to download and install the python package e.g. Flask, requests etc.

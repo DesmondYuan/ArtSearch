@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import pandas as pd
 import os
 
 from query import get_metadata, get_google_feature, get_dominant_color, get_nearest
@@ -19,17 +20,36 @@ def mainm():
             filename
         )  # comment out this line for faster calculation
         nearest = get_nearest(filename)
-        msg = "\nLoading filename successful! Now we are at root:" + os.getcwd()
+        df = pd.DataFrame(nearest)
+        match1 = os.path.join("img", df.loc["best_match", "distance_1"])
+        match2 = os.path.join("img", df.loc["best_match", "distance_2"])
+        match3 = os.path.join("img", df.loc["best_match", "distance_3"])
+        match4 = os.path.join("img", df.loc["best_match", "distance_4"])
+
+        # md = pd.DataFrame(meta, columns=["Descriptor", "Value"])
 
         return render_template(
             "display.html",
             art_image=fullfilename,
-            msg=msg,
+            match1=match1,
+            match2=match2,
+            match3=match3,
+            match4=match4,
             google_features=str(google_features),
             dominant_colors=str(dominant_colors),
             nearest_images=str(nearest),
-            metadata=str(meta),
+            metadata=[meta.to_html(classes="data")]
+            # metadata="<html><head>Painting Information</head><body>"
+            # + meta
+            # + "</body></html>",
+            # md=(md),
         )
+
+        # return render_template(
+        #     "metadata.html",
+        #     tables=[meta.to_html(classes="data")],
+        #     titles=meta.columns.values,
+        # )
     else:
         return "maindb.py - This is get method - try using post -- "
 

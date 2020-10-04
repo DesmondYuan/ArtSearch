@@ -11,6 +11,7 @@ from sklearn.metrics import mean_squared_error as MSE
 import pickle as pkl
 import time
 import tqdm
+from dask import delayed
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
@@ -126,19 +127,18 @@ Distance 3: Cosine distance on rawdata (center cropping)
 
 def get_nearest_use_distance_3_fn(fn, fns):
     cc = time.time()
+    fns = list(set(fns) - set(fn))
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)
-    best_score = 1e10
-    best_match = "No match found"
+    scores = []
     for fn_iter in tqdm.tqdm(fns):
-        if fn_iter != fn:
-            x = get_pic_array(fn_iter)
-            score = cosine_distance_raw_center_crop(y, x)
-            if best_score > score:
-                best_match = fn_iter
-                best_score = score
-    return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
+        x = delayed(get_pic_array)(fn_iter)
+        score = delayed(cosine_distance_raw_center_crop)(y, x)
+        scores.append(score)
+    scores = scores.compute()
+    min_pos = np.argsort(scores)[0]
+    return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
 
 
 def crop_to_square(pic_array1, pic_array2):
@@ -167,20 +167,19 @@ Distance 4: Cosine distance on rawdata (center cropping)
 '''
 def get_nearest_use_distance_4_fn(fn, fns):
     cc = time.time()
+    fns = list(set(fns) - set(fn))
     fn = os.path.join(path, fn)
     fns = [os.path.join(path, f) for f in fns]
     y = get_pic_array(fn)
-    best_score = 1e10
-    best_match = "No match found"
+    scores = []
     for fn_iter in tqdm.tqdm(fns):
-        if fn_iter != fn:
-            x = get_pic_array(fn_iter)
-            score = euclidean_distance_raw_center_crop(y, x)
-            if best_score > score:
-                best_match = fn_iter
-                best_score = score
-    return {"best_match": best_match, "score": best_score, "time":time.time()-cc}
-
+        x = delayed(get_pic_array)(fn_iter)
+        score = delayed(euclidean_distance_raw_center_crop)(y, x)
+        scores.append(score)
+    scores = scores.compute()
+    min_pos = np.argsort(scores)[0]
+    return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
+    
 
 def euclidean_distance_raw_center_crop(pic1, pic2):
     x1, x2 = crop_to_square(pic1, pic2)

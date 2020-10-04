@@ -14,15 +14,7 @@ docker network create appNetwork
 # mount a persistent GCP volume
 docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb -v /mnt/disks/ssd_disk/resource:/static --network appNetwork simplequery
 docker run --name maindb -d -v /mnt/disks/ssd_disk/resource:/static  --network appNetwork maindb
-# docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb --mount type=bind,source=/mnt/disks/ssd-disk/resource,target=/static --network appNetwork simplequery
-# docker run --name maindb -d --mount type=bind,source=/mnt/disks/ssd-disk/resource,target=/static  --network appNetwork maindb
 sleep 4 && docker ps -a && docker logs simplequery && docker logs maindb
-
-
-# trying to mount local drive
-# docker run --name simplequery -d -p 5000:8081 -e DB_HOST=maindb --mount type=bind,source=/Users/debbieliske/Downloads/static,target=/static --network appNetwork simplequery
-# docker run --name maindb -d --mount type=bind,source=/Users/debbieliske/Downloads/static,target=/static --network appNetwork maindb
-# sleep 2 && docker ps -a && docker logs simplequery && docker logs maindb
 
 end=$(date +%s)
 

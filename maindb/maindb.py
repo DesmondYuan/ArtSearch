@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import os
-
 from query import get_metadata, get_google_feature, get_dominant_color, get_nearest
 
 
 app = Flask(__name__)
-
 
 @app.route("/", methods=["POST", "GET"])
 def mainm():
@@ -30,8 +28,6 @@ def mainm():
         score3 = df.loc["score", "distance_3"]
         score4 = df.loc["score", "distance_4"]
 
-        # md = pd.DataFrame(meta, columns=["Descriptor", "Value"])
-
         return render_template(
             "display.html",
             art_image=fullfilename,
@@ -47,17 +43,7 @@ def mainm():
             dominant_colors=str(dominant_colors),
             nearest_images=str(nearest),
             metadata=[meta.to_html(classes="data")]
-            # metadata="<html><head>Painting Information</head><body>"
-            # + meta
-            # + "</body></html>",
-            # md=(md),
         )
-
-        # return render_template(
-        #     "metadata.html",
-        #     tables=[meta.to_html(classes="data")],
-        #     titles=meta.columns.values,
-        # )
     else:
         return "maindb.py - This is get method - try using post -- "
 

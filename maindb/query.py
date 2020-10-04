@@ -16,10 +16,9 @@ import tqdm
 features_g_df = pd.read_csv("/static/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 pooling_df = pd.read_csv("/static/FeatureTable_Pooling.csv", index_col=0)
 color_pkl = pkl.load(open("/static/FeatureTable_DominantColors.pkl", "rb"))
-meta = pd.read_csv("/static/metadata.csv", index_col=0)
+meta = pd.read_csv("/static/metadata.csv", index_col=0).fillna("Unknown")
 client = vision.ImageAnnotatorClient()
-path = "/static/img"  # on master node
-# path = "/resource/img/"
+path = "/static/img"
 
 
 def get_nearest(fn):
@@ -37,14 +36,8 @@ def get_nearest(fn):
 
 
 def get_metadata(fn):
-
-    # meta = meta.reset_index()
-    # meta = pd.read_csv("/static/metadata_mod.csv")
-    # meta = pd.DataFrame(meta[meta["file_id"] == fn]).T
-    # meta = meta.reset_index()
     record = meta.loc[[fn]].transpose()
     record = record.reset_index()
-
     return record
 
 
@@ -88,8 +81,6 @@ Distance 2: Color distance in RGB space
 
 def get_nearest_use_distance_2_fn(fn, fns):
     cc = time.time()
-    # fn = os.path.join(path, fn)
-    # fns = [os.path.join(path, f) for f in fns]
     y = get_dominant_color(fn)
     best_score = 1e10
     best_match = "No match found"

@@ -25,10 +25,10 @@ def mainm():
         match2 = os.path.join("img", df.loc["best_match", "distance_2"])
         match3 = os.path.join("img", df.loc["best_match", "distance_3"])
         match4 = os.path.join("img", df.loc["best_match", "distance_4"])
-        score1 = os.path.join("img", df.loc["best_score", "distance_1"])
-        score2 = os.path.join("img", df.loc["best_score", "distance_2"])
-        score3 = os.path.join("img", df.loc["best_score", "distance_3"])
-        score4 = os.path.join("img", df.loc["best_score", "distance_4"])
+        score1 = df.loc["score", "distance_1"]
+        score2 = df.loc["score", "distance_2"]
+        score3 = df.loc["score", "distance_3"]
+        score4 = df.loc["score", "distance_4"]
 
         # md = pd.DataFrame(meta, columns=["Descriptor", "Value"])
 

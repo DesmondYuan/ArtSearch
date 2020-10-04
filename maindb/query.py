@@ -16,7 +16,7 @@ import tqdm
 features_g_df = pd.read_csv("/static/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 pooling_df = pd.read_csv("/static/FeatureTable_Pooling.csv", index_col=0)
 color_pkl = pkl.load(open("/static/FeatureTable_DominantColors.pkl", "rb"))
-# meta = pd.read_csv("/static/metadata_mod.csv", index_col=0)
+meta = pd.read_csv("/static/metadata_mod.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
 path = "/static/img"  # on master node
 # path = "/resource/img/"
@@ -38,12 +38,12 @@ def get_nearest(fn):
 def get_metadata(fn):
 
     # meta = meta.reset_index()
-    meta = pd.read_csv("/static/metadata_mod.csv")
-    meta = pd.DataFrame(meta[meta["file_id"] == fn]).T
-    meta = meta.reset_index()
-    # record = meta.loc[fn].to_dict()
+    # meta = pd.read_csv("/static/metadata_mod.csv")
+    # meta = pd.DataFrame(meta[meta["file_id"] == fn]).T
+    # meta = meta.reset_index()
+    record = meta.loc[fn].to_dict()
 
-    return meta
+    return record
 
 
 """
@@ -279,4 +279,3 @@ def euclidean_distance_raw_center_crop(pic1, pic2, use_dask=True):
         )
         # print("Cosine distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
     return dist
-

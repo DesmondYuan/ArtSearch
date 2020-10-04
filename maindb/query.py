@@ -12,13 +12,14 @@ import pickle as pkl
 import time
 import tqdm
 from dask import delayed
+import dask_image.imread
 
 
 features_g_df = pd.read_csv("/resource/FeatureTable_GoogleAnnot.PCA.csv", index_col=0)
 color_pkl = pkl.load(open("/resource/FeatureTable_DominantColors.pkl", 'rb'))
 meta = pd.read_csv("/resource/metadata.csv", index_col=0)
 client = vision.ImageAnnotatorClient()
-path = "resource/img"
+path = "resource/img"  # on master node
 path = "/resource/img/"
 
 def get_nearest(fn):
@@ -28,8 +29,8 @@ def get_nearest(fn):
         out = {
             'distance_1': get_nearest_use_distance_1_fn(fn, fns),
             'distance_2': get_nearest_use_distance_2_fn(fn, fns),
-            'distance_3': delayed(get_nearest_use_distance_3_fn)(fn, fns).compute(),
-            'distance_4': delayed(get_nearest_use_distance_4_fn)(fn, fns).compute()
+            'distance_3': get_nearest_use_distance_3_fn(fn, fns),
+            'distance_4': get_nearest_use_distance_4_fn(fn, fns)
         }
     return out
 
@@ -149,16 +150,23 @@ def crop_to_square(pic_array1, pic_array2):
     return c1, c2
 
 
-def get_pic_array(img_filename):
-    with Image.open(img_filename) as im:
-        pic = np.array(im.getdata()).reshape(im.size[0], im.size[1], 3)
+def get_pic_array(img_filename, res=32, use_dask=True):
+    if use_dask:
+        im = dask_image.imread.imread(img_filename)[0]
+        pic = im.mean(axis=2)[::im.shape[0]//res, ::im.shape[1]//res][:res, :res]
+    else:
+        with Image.open(img_filename) as im:
+            pic = np.array(im.getdata()).reshape(im.size[0], im.size[1], 3)
     return pic
 
 
-def cosine_distance_raw_center_crop(pic1, pic2):
-    x1, x2 = crop_to_square(pic1, pic2)
-    dist = 1 - np.mean([cosine_similarity(x1[:,:,layer], x2[:,:,layer]) for layer in range(3)])
-    # print("Cosine distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
+def cosine_distance_raw_center_crop(pic1, pic2, use_dask=True):
+    if use_dask:
+        dist = 1 - np.mean(cosine_similarity(pic1, pic2))
+    else:
+        x1, x2 = crop_to_square(pic1, pic2)
+        dist = 1 - np.mean([cosine_similarity(x1[:,:,layer], x2[:,:,layer]) for layer in range(1)])
+        # print("Cosine distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
     return dist
 
 '''
@@ -180,8 +188,11 @@ def get_nearest_use_distance_4_fn(fn, fns):
     return {"best_match": fns[min_pos], "score": scores[min_pos], "time":time.time()-cc}
 
 
-def euclidean_distance_raw_center_crop(pic1, pic2):
-    x1, x2 = crop_to_square(pic1, pic2)
-    dist = np.mean([MSE(x1[:,:,layer], x2[:,:,layer], squared=False) for layer in range(3)])
-    # print("Euclidean distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
+def cosine_distance_raw_center_crop(pic1, pic2, use_dask=True):
+    if use_dask:
+        dist = np.mean(MSE(pic1, pic2))
+    else:
+        x1, x2 = crop_to_square(pic1, pic2)
+        dist = 1 - np.mean([cosine_similarity(x1[:,:,layer], x2[:,:,layer]) for layer in range(1)])
+        # print("Cosine distance on rawdata (center crop) for {}, {} = {}".format(fn1, fn2, dist))
     return dist

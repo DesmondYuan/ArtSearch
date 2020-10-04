@@ -27,4 +27,5 @@ def mainm():
 
 if __name__ == "__main__":
     client = Client()
+    print("Dask client started: ", client)
     app.run(host="0.0.0.0", port=8082, debug=True)

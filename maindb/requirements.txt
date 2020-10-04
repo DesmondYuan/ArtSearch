@@ -12,3 +12,5 @@ scikit-learn
 pillow
 tqdm
 dask[complete]
+scikit-image
+dask-image

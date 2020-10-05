@@ -133,8 +133,9 @@ def color_distance(colors1, colors2):
                 + 4 * dG ** 2
                 + (3 - r_mean / 256) * dB ** 2
             )
-            tmp_dist.append([dcolor, fraction_weight])
+            tmp_dist.append([dcolor, fraction_weight, c2])
         best_dcolor = np.sort(tmp_dist, axis=0)[0]  # pick the closest color pair
+        colors2 = list(set(colors2) - set([best_dcolor[2]])) 
         dist += best_dcolor[0] * best_dcolor[1]
     # print("Color distance for {}, {} = {}".format(fn1, fn2, dist))
     return dist
